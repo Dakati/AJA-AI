@@ -1,0 +1,110 @@
+[
+  {
+    "role": "system",
+    "content": "You are AJA AI, a helpful assistant. Remember previous conversation from the saved history."
+  },
+  {
+    "role": "user",
+    "content": "My name is Aja"
+  },
+  {
+    "role": "assistant",
+    "content": "Nice to meet you, Aja! How can I help you today?"
+  },
+  {
+    "role": "user",
+    "content": "what is my name"
+  },
+  {
+    "role": "assistant",
+    "content": "You’re Aja."
+  },
+  {
+    "role": "user",
+    "content": "Good morning Aja"
+  },
+  {
+    "role": "assistant",
+    "content": "Good morning! ☀️ How can I help you today?"
+  },
+  {
+    "role": "user",
+    "content": "Open Chrome"
+  },
+  {
+    "role": "assistant",
+    "content": "I can’t launch Chrome directly from here, but I can walk you through how to open it on your computer. Just let me know which operating system you’re using (Windows, macOS, Linux, or a mobile device), and I’ll give you the exact steps!"
+  },
+  {
+    "role": "user",
+    "content": "hello"
+  },
+  {
+    "role": "assistant",
+    "content": "Hello! How can I assist you today?"
+  },
+  {
+    "role": "user",
+    "content": "opening chrome"
+  },
+  {
+    "role": "assistant",
+    "content": "Sure thing! Here’s a quick guide to opening Google Chrome on the most common platforms:\n\n| Platform | How to Open Chrome |\n|----------|--------------------|\n| **Windows** | 1. Click the **Start** button (bottom‑left corner).  <br>2. Type “Chrome” or “Google Chrome” in the search bar.  <br>3. Click the Chrome icon that appears.  <br>*(Shortcut)*: If you have a desktop or taskbar icon, just double‑click or click it. |\n| **macOS** | 1. Open **Finder** → **Applications**.  <br>2. Find **Google Chrome** and double‑click it.  <br>*(Shortcut)*: If you’ve added it to the Dock, click the Chrome icon there. |\n| **Linux (Ubuntu, Debian, etc.)** | 1. Press **Super** (Windows key) to open the Activities overview.  <br>2. Type “Chrome” or “Google Chrome”.  <br>3. Click the icon that appears.  <br>*(Shortcut)*: If you have a launcher or panel icon, click it. |\n| **Android** | 1. Open the **App Drawer** (swipe up from the bottom or tap the grid icon).  <br>2. Find the **Chrome** app and tap it. |\n| **iOS (iPhone/iPad)** | 1. Locate the **Chrome** app on your home screen or in the App Library.  <br>2. Tap the icon to launch it. |\n\nIf Chrome isn’t installed yet, you can download it from the official site:  \n[https://www.google.com/chrome/](https://www.google.com/chrome/)\n\nLet me know if you need help with anything else—like setting it as your default browser, signing in, or troubleshooting a specific issue!"
+  },
+  {
+    "role": "user",
+    "content": "hello"
+  },
+  {
+    "role": "assistant",
+    "content": "Hello again! How can I help you today?"
+  },
+  {
+    "role": "user",
+    "content": "hello"
+  },
+  {
+    "role": "assistant",
+    "content": "Hi there! 👋 How can I assist you today?"
+  },
+  {
+    "role": "user",
+    "content": "what is on my screen"
+  },
+  {
+    "role": "assistant",
+    "content": "I don’t have a way to see your screen, so I can’t tell you exactly what’s on it. If you describe what you’re looking at or what you’re trying to do, I’ll do my best to help!"
+  },
+  {
+    "role": "user",
+    "content": "what is on my screen"
+  },
+  {
+    "role": "assistant",
+    "content": "I don’t have the ability to view your screen, so I can’t tell you exactly what’s on it. If you describe what you’re seeing—or what you’re trying to accomplish—I’ll gladly help you figure it out!"
+  },
+  {
+    "role": "user",
+    "content": "hello"
+  },
+  {
+    "role": "assistant",
+    "content": "I don’t have a way to see your screen, so I can’t tell you exactly what’s on it. If you describe what you’re looking at—or what you’re trying to accomplish—I’ll do my best to help you figure it out!"
+  },
+  {
+    "role": "user",
+    "content": "hello"
+  },
+  {
+    "role": "assistant",
+    "content": "I’m sorry—I can’t actually see what’s on your screen. If you tell me what you’re looking at or what you’re trying to do, I’ll do my best to help you out!"
+  },
+  {
+    "role": "user",
+    "content": "hi"
+  },
+  {
+    "role": "assistant",
+    "content": "I’m sorry—I can’t actually see what’s on your screen. If you describe what you’re looking at or what you’re trying to do, I’ll do my best to help you out!"
+  }
+]
