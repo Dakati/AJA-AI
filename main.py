@@ -1,57 +1,131 @@
 from datetime import datetime
-
+from system_info import get_system_status, health_check, get_system_info
 from ai import ask_ai
 from memory import load_memory, save_memory
 from commands import run_command
 from voice import speak, listen
 from browser import google, youtube
 from notes import add_note, show_notes, delete_note
+from planner import create_plan
 
-print("=" * 50)
-print("🤖 AJA AI Assistant")
-print("=" * 50)
+print("=" * 60)
+print("🤖 AJA AI Assistant v2.0")
+print("=" * 60)
 
 messages = load_memory()
 mode = "text"
 
 while True:
 
+    # ---------------- INPUT ----------------
+
     if mode == "voice":
+
         user = listen()
 
         if not user:
             continue
 
     else:
+
         user = input("You: ")
 
     user = user.strip()
 
+    # ---------------- PLANNER ----------------
+
+    plan = create_plan(user)
+
+    print("\n===== AJA PLAN =====")
+
+    for i, step in enumerate(plan, 1):
+        print(f"{i}. {step}")
+
+    print("====================\n")
+
+    # ---------------- EXIT ----------------
+
     if user.lower() == "exit":
+
         save_memory(messages)
+
         speak("Goodbye Aja")
+
         break
 
+    # ---------------- MODE ----------------
+
     if user.lower() == "voice":
+
         mode = "voice"
+
         speak("Voice mode enabled")
+
         continue
 
     if user.lower() == "text":
+
         mode = "text"
+
         print("Text mode enabled")
+
         continue
+
+    # ---------------- TIME ----------------
 
     if user.lower() == "time":
+
         now = datetime.now().strftime("%I:%M %p")
+
         print("AJA:", now)
+
         speak(now)
+
         continue
 
+    # ---------------- DATE ----------------
+
     if user.lower() == "date":
+
         today = datetime.now().strftime("%d-%m-%Y")
+
         print("AJA:", today)
+
         speak(today)
+
+        continue
+        # ---------------- SYSTEM STATUS ----------------
+
+    if user.lower() == "system status":
+
+        status = get_system_status()
+
+        print(status)
+
+        speak("Here is your system status.")
+
+        continue
+        # ---------------- HEALTH CHECK ----------------
+
+    if user.lower() == "health check":
+
+        report = health_check()
+
+        print(report)
+
+        speak("System health check completed.")
+
+        continue
+        # ---------------- SYSTEM INFO ----------------
+
+    if user.lower() == "system info":
+
+        info = get_system_info()
+
+        print(info)
+
+        speak("Showing system information.")
+
         continue
         # ---------------- WINDOWS COMMANDS ----------------
 
@@ -62,7 +136,7 @@ while True:
         speak(result)
         continue
 
-    # ---------------- GOOGLE ----------------
+    # ---------------- GOOGLE SEARCH ----------------
 
     if user.lower().startswith("google "):
 
@@ -76,7 +150,7 @@ while True:
 
         continue
 
-    # ---------------- YOUTUBE ----------------
+    # ---------------- YOUTUBE SEARCH ----------------
 
     if user.lower().startswith("youtube "):
 
@@ -119,6 +193,7 @@ while True:
             msg = delete_note(number)
 
         except:
+
             msg = "Invalid note number."
 
         print("AJA:", msg)
