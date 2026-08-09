@@ -7,6 +7,7 @@ from voice import speak, listen
 from browser import google, youtube
 from notes import add_note, show_notes, delete_note
 from planner import create_plan
+from vision import open_image, read_text, describe_image
 
 print("=" * 60)
 print("🤖 AJA AI Assistant v2.0")
@@ -42,6 +43,17 @@ while True:
         print(f"{i}. {step}")
 
     print("====================\n")
+    # ---------------- PLAN EXECUTION ----------------
+
+if "chrome" in user.lower() and "search" in user.lower():
+
+    result = run_command(user)
+
+    if result:
+        print("AJA:", result)
+        speak(result)
+
+    continue
 
     # ---------------- EXIT ----------------
 
@@ -125,6 +137,51 @@ while True:
         print(info)
 
         speak("Showing system information.")
+
+        continue
+        # ---------------- VISION ----------------
+
+    if user.lower().startswith("vision "):
+
+        path = user[7:].strip()
+
+        result = open_image(path)
+
+        print(result)
+
+        speak(result)
+
+        continue
+        # ---------------- OCR ----------------
+
+    if user.lower().startswith("read image "):
+
+        path = user[11:].strip()
+
+        text = read_text(path)
+
+        print("\n===== OCR RESULT =====\n")
+        print(text)
+        print("\n======================\n")
+
+        speak("Image text reading completed.")
+
+        continue
+        # ---------------- AI IMAGE DESCRIPTION ----------------
+
+    if user.lower().startswith("describe "):
+
+        path = user[9:].strip()
+
+        print("\nAnalyzing image... Please wait.\n")
+
+        result = describe_image(path)
+
+        print("\n===== IMAGE DESCRIPTION =====\n")
+        print(result)
+        print("\n=============================\n")
+
+        speak("Image analysis completed.")
 
         continue
         # ---------------- WINDOWS COMMANDS ----------------

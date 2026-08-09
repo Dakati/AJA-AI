@@ -106,5 +106,93 @@
   {
     "role": "assistant",
     "content": "I’m sorry—I can’t actually see what’s on your screen. If you describe what you’re looking at or what you’re trying to do, I’ll do my best to help you out!"
+  },
+  {
+    "role": "user",
+    "content": "hello"
+  },
+  {
+    "role": "assistant",
+    "content": "AI Error: Error code: 401 - {'error': {'message': 'User not found.', 'code': 401}}"
+  },
+  {
+    "role": "user",
+    "content": "hi"
+  },
+  {
+    "role": "assistant",
+    "content": "AI Error: Connection error."
+  },
+  {
+    "role": "user",
+    "content": "hello"
+  },
+  {
+    "role": "assistant",
+    "content": "AI Error: Error code: 401 - {'error': {'message': 'User not found.', 'code': 401}}"
+  },
+  {
+    "role": "user",
+    "content": "hello"
+  },
+  {
+    "role": "assistant",
+    "content": "AI Error: Error code: 401 - {'error': {'message': 'User not found.', 'code': 401}}"
+  },
+  {
+    "role": "user",
+    "content": "hello"
+  },
+  {
+    "role": "assistant",
+    "content": "Hi there! I’m here to help—just let me know what you’d like to do or if there’s something specific you’re having trouble with. If you’re trying to open Chrome, set it as your default browser, or anything else, just give me a quick description and I’ll walk you through it."
+  },
+  {
+    "role": "user",
+    "content": "You: describe photo.jpg"
+  },
+  {
+    "role": "assistant",
+    "content": "I’d love to help, but I can’t see the image you’re referring to. Could you upload the photo or describe what’s in it? Once I have a bit more detail, I can give you a description or answer any questions you have about it."
+  },
+  {
+    "role": "user",
+    "content": "hello"
+  },
+  {
+    "role": "assistant",
+    "content": "Hi again! 👋 How can I help you today? If you’d like me to describe a photo, just upload it or give me a quick description of what’s in it, and I’ll do my best. If there’s something else on your mind, let me know!"
+  },
+  {
+    "role": "user",
+    "content": "hello aaja"
+  },
+  {
+    "role": "assistant",
+    "content": "Hello! 👋 How can I help you today?"
+  },
+  {
+    "role": "user",
+    "content": "I need work"
+  },
+  {
+    "role": "assistant",
+    "content": "Sure thing! Let’s get you on the right track.  \nFirst, could you tell me a bit more about what you’re looking for?\n\n| What you might want to share | Why it helps |\n|------------------------------|--------------|\n| **Industry / field** (e.g., marketing, software, customer service) | Helps me suggest the right job boards and companies. |\n| **Experience level** (entry‑level, mid‑career, senior) | Determines which roles are a good fit. |\n| **Location** (remote, city, country) | I can point you to local listings or remote‑only opportunities. |\n| **Preferred work style** (full‑time, part‑time, freelance, contract) | Tailors the search to your schedule. |\n| **Key skills / certifications** | Highlights roles that match your strengths. |\n| **Any specific companies or types of companies** (startup, nonprofit, large corporation) | Focuses the search on your interests. |\n\nOnce I have that info, I can:\n\n1. **Show you the best job boards** (LinkedIn, Indeed, Glassdoor, niche sites).  \n2. **Help you craft a standout résumé & cover letter** tailored to the roles you want.  \n3. **Share interview prep tips** and common questions for your field.  \n4. **Give you networking strategies** (e.g., LinkedIn outreach, industry events).  \n5. **Offer quick freelance gigs** if you’re open to short‑term work while you search.\n\nJust let me know a few details, and we’ll dive in!"
+  },
+  {
+    "role": "user",
+    "content": "My name is Aja"
+  },
+  {
+    "role": "assistant",
+    "content": "Nice to meet you, Aja! 👋 How can I help you today? If you’re looking for work, just let me know a bit about your industry, experience level, location, and any other preferences, and I’ll help you find the right opportunities."
+  },
+  {
+    "role": "user",
+    "content": "What is my name?"
+  },
+  {
+    "role": "assistant",
+    "content": "Your name is Aja."
   }
 ]

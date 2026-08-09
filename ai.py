@@ -1,16 +1,20 @@
 from openai import OpenAI
-from config import API_KEY
+from config import OPENROUTER_API_KEY, MODEL
 
 client = OpenAI(
     base_url="https://openrouter.ai/api/v1",
-    api_key=API_KEY
+    api_key=OPENROUTER_API_KEY,
 )
 
 
 def ask_ai(messages):
-    response = client.chat.completions.create(
-        model="openai/gpt-oss-20b:free",
-        messages=messages
-    )
+    try:
+        response = client.chat.completions.create(
+            model=MODEL,
+            messages=messages,
+        )
 
-    return response.choices[0].message.content
+        return response.choices[0].message.content
+
+    except Exception as e:
+        return f"AI Error: {e}"

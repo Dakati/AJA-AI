@@ -1,6 +1,7 @@
 import os
 import re
 import webbrowser
+import urllib.parse
 
 
 def run_command(command):
@@ -9,20 +10,53 @@ def run_command(command):
     # Remove punctuation
     cmd = re.sub(r"[^\w\s]", "", cmd)
 
+    # ---------- Chrome + Google Search ----------
+    if "chrome" in cmd and "search" in cmd:
+        query = cmd
+
+        query = query.replace("open chrome", "")
+        query = query.replace("search", "")
+        query = query.replace("google", "")
+        query = query.replace("chrome", "")
+
+        query = query.strip()
+
+        if query:
+            url = "https://www.google.com/search?q=" + urllib.parse.quote_plus(query)
+            webbrowser.open(url)
+            return f"Searching Google for {query}"
+
+        os.system("start chrome")
+        return "Opening Chrome..."
+
+    # ---------- Google Search ----------
+    if "google" in cmd:
+        query = cmd.replace("google", "", 1).strip()
+
+        if query:
+            url = "https://www.google.com/search?q=" + urllib.parse.quote_plus(query)
+            webbrowser.open(url)
+            return f"Searching Google for {query}"
+
+        webbrowser.open("https://www.google.com")
+        return "Opening Google..."
+
+    # ---------- YouTube Search ----------
+    if "youtube" in cmd:
+        query = cmd.replace("youtube", "", 1).strip()
+
+        if query:
+            url = "https://www.youtube.com/results?search_query=" + urllib.parse.quote_plus(query)
+            webbrowser.open(url)
+            return f"Searching YouTube for {query}"
+
+        webbrowser.open("https://www.youtube.com")
+        return "Opening YouTube..."
+
     # ---------- Chrome ----------
     if "chrome" in cmd:
         os.system("start chrome")
         return "Opening Chrome..."
-
-    # ---------- Google ----------
-    if "google" in cmd:
-        webbrowser.open("https://www.google.com")
-        return "Opening Google..."
-
-    # ---------- YouTube ----------
-    if "youtube" in cmd:
-        webbrowser.open("https://www.youtube.com")
-        return "Opening YouTube..."
 
     # ---------- Notepad ----------
     if "notepad" in cmd:
@@ -70,7 +104,7 @@ def run_command(command):
         return "Opening Paint..."
 
     # ---------- File Explorer ----------
-    if "explorer" in cmd or "file explorer" in cmd:
+    if "file explorer" in cmd or cmd == "explorer":
         os.system("explorer")
         return "Opening File Explorer..."
 
@@ -80,7 +114,7 @@ def run_command(command):
         return "Opening Task Manager..."
 
     # ---------- Command Prompt ----------
-    if "command prompt" in cmd or "cmd" == cmd:
+    if "command prompt" in cmd or cmd == "cmd":
         os.system("start cmd")
         return "Opening Command Prompt..."
 
