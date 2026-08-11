@@ -1,287 +1,530 @@
 from datetime import datetime
-from system_info import get_system_status, health_check, get_system_info
+
+# ==============================
+# AJA AI MODULES
+# ==============================
+
 from ai import ask_ai
+
 from memory import load_memory, save_memory
-from commands import run_command
+
 from voice import speak, listen
-from browser import google, youtube
-from notes import add_note, show_notes, delete_note
+
 from planner import create_plan
+
+from commands import run_command
+
+from browser_control import BrowserController
+
 from vision import open_image, read_text, describe_image
 
+from notes import add_note, show_notes, delete_note
+
+from system_info import get_system_status
+
+
+# ==============================
+# BROWSER
+# ==============================
+
+browser = BrowserController()
+
+
+# ==============================
+# STARTUP
+# ==============================
+
 print("=" * 60)
-print("🤖 AJA AI Assistant v2.0")
+print("🤖 AJA AI ASSISTANT v2.0")
 print("=" * 60)
 
 messages = load_memory()
+
 mode = "text"
+
+
+# ==============================
+# MAIN LOOP
+# ==============================
 
 while True:
 
-    # ---------------- INPUT ----------------
+    # --------------------------
+    # INPUT
+    # --------------------------
 
     if mode == "voice":
 
-        user = listen()
+        try:
+            user = listen()
+        except Exception as e:
+            print("AJA Voice Error:", e)
+            continue
 
         if not user:
             continue
 
     else:
 
-        user = input("You: ")
+        try:
+            user = input("You: ")
+        except (KeyboardInterrupt, EOFError):
+            print("\nAJA: Goodbye!")
+            break
 
     user = user.strip()
 
-    # ---------------- PLANNER ----------------
+    if not user:
+        continue
 
-    plan = create_plan(user)
+    cmd = user.lower().strip()
 
-    print("\n===== AJA PLAN =====")
 
-    for i, step in enumerate(plan, 1):
-        print(f"{i}. {step}")
+    # =========================================================
+    # EXIT
+    # =========================================================
 
-    print("====================\n")
-    # ---------------- PLAN EXECUTION ----------------
+    if cmd == "exit" or cmd == "quit":
 
-if "chrome" in user.lower() and "search" in user.lower():
+        try:
+            save_memory(messages)
+        except Exception as e:
+            print("Memory save error:", e)
 
-    result = run_command(user)
+        print("AJA: Goodbye!")
+        
+        try:
+            speak("Goodbye Aja")
+        except Exception:
+            pass
 
-    if result:
-        print("AJA:", result)
-        speak(result)
-
-    continue
-
-    # ---------------- EXIT ----------------
-
-    if user.lower() == "exit":
-
-        save_memory(messages)
-
-        speak("Goodbye Aja")
+        try:
+            browser.close()
+        except Exception:
+            pass
 
         break
 
-    # ---------------- MODE ----------------
 
-    if user.lower() == "voice":
+    # =========================================================
+    # VOICE MODE
+    # =========================================================
+
+    if cmd == "voice":
 
         mode = "voice"
 
-        speak("Voice mode enabled")
+        print("AJA: Voice mode enabled.")
+
+        try:
+            speak("Voice mode enabled")
+        except Exception:
+            pass
 
         continue
 
-    if user.lower() == "text":
+
+    # =========================================================
+    # TEXT MODE
+    # =========================================================
+
+    if cmd == "text":
 
         mode = "text"
 
-        print("Text mode enabled")
+        print("AJA: Text mode enabled.")
 
         continue
 
-    # ---------------- TIME ----------------
 
-    if user.lower() == "time":
+    # =========================================================
+    # TIME
+    # =========================================================
+
+    if cmd == "time":
 
         now = datetime.now().strftime("%I:%M %p")
 
         print("AJA:", now)
 
-        speak(now)
+        try:
+            speak(now)
+        except Exception:
+            pass
 
         continue
 
-    # ---------------- DATE ----------------
 
-    if user.lower() == "date":
+    # =========================================================
+    # DATE
+    # =========================================================
+
+    if cmd == "date":
 
         today = datetime.now().strftime("%d-%m-%Y")
 
         print("AJA:", today)
 
-        speak(today)
-
-        continue
-        # ---------------- SYSTEM STATUS ----------------
-
-    if user.lower() == "system status":
-
-        status = get_system_status()
-
-        print(status)
-
-        speak("Here is your system status.")
-
-        continue
-        # ---------------- HEALTH CHECK ----------------
-
-    if user.lower() == "health check":
-
-        report = health_check()
-
-        print(report)
-
-        speak("System health check completed.")
-
-        continue
-        # ---------------- SYSTEM INFO ----------------
-
-    if user.lower() == "system info":
-
-        info = get_system_info()
-
-        print(info)
-
-        speak("Showing system information.")
-
-        continue
-        # ---------------- VISION ----------------
-
-    if user.lower().startswith("vision "):
-
-        path = user[7:].strip()
-
-        result = open_image(path)
-
-        print(result)
-
-        speak(result)
-
-        continue
-        # ---------------- OCR ----------------
-
-    if user.lower().startswith("read image "):
-
-        path = user[11:].strip()
-
-        text = read_text(path)
-
-        print("\n===== OCR RESULT =====\n")
-        print(text)
-        print("\n======================\n")
-
-        speak("Image text reading completed.")
-
-        continue
-        # ---------------- AI IMAGE DESCRIPTION ----------------
-
-    if user.lower().startswith("describe "):
-
-        path = user[9:].strip()
-
-        print("\nAnalyzing image... Please wait.\n")
-
-        result = describe_image(path)
-
-        print("\n===== IMAGE DESCRIPTION =====\n")
-        print(result)
-        print("\n=============================\n")
-
-        speak("Image analysis completed.")
-
-        continue
-        # ---------------- WINDOWS COMMANDS ----------------
-
-    result = run_command(user)
-
-    if result:
-        print("AJA:", result)
-        speak(result)
-        continue
-
-    # ---------------- GOOGLE SEARCH ----------------
-
-    if user.lower().startswith("google "):
-
-        query = user[7:]
-
-        msg = google(query)
-
-        print("AJA:", msg)
-
-        speak(msg)
+        try:
+            speak(today)
+        except Exception:
+            pass
 
         continue
 
-    # ---------------- YOUTUBE SEARCH ----------------
 
-    if user.lower().startswith("youtube "):
+    # =========================================================
+    # SYSTEM STATUS
+    # =========================================================
 
-        query = user[8:]
-
-        msg = youtube(query)
-
-        print("AJA:", msg)
-
-        speak(msg)
-
-        continue
-
-    # ---------------- NOTES ----------------
-
-    if user.lower().startswith("note "):
-
-        msg = add_note(user[5:])
-
-        print("AJA:", msg)
-
-        speak(msg)
-
-        continue
-
-    if user.lower() == "show notes":
-
-        msg = show_notes()
-
-        print(msg)
-
-        speak("Showing notes.")
-
-        continue
-
-    if user.lower().startswith("delete note "):
+    if cmd == "system status":
 
         try:
-            number = int(user.split()[-1])
-            msg = delete_note(number)
+            result = get_system_status()
+        except Exception as e:
+            result = f"System status error: {e}"
 
-        except:
+        print(result)
 
-            msg = "Invalid note number."
-
-        print("AJA:", msg)
-
-        speak(msg)
+        try:
+            speak("Here is your system status")
+        except Exception:
+            pass
 
         continue
-        # ---------------- AI CHAT ----------------
 
-    messages.append({
-        "role": "user",
-        "content": user
-    })
+
+    # =========================================================
+    # GOOGLE SEARCH
+    # =========================================================
+
+    if cmd.startswith("search google for "):
+
+        query = user[len("search google for "):].strip()
+
+        if not query:
+            print("AJA: Please tell me what to search.")
+            continue
+
+        result = browser.search_google(query)
+
+        print("AJA:", result)
+
+        try:
+            speak(result)
+        except Exception:
+            pass
+
+        continue
+
+
+    # =========================================================
+    # YOUTUBE SEARCH
+    # =========================================================
+
+    if cmd.startswith("search youtube for "):
+
+        query = user[len("search youtube for "):].strip()
+
+        if not query:
+            print("AJA: Please tell me what to search on YouTube.")
+            continue
+
+        result = browser.search_youtube(query)
+
+        print("AJA:", result)
+
+        try:
+            speak(result)
+        except Exception:
+            pass
+
+        continue
+
+
+    # =========================================================
+    # OPEN WEBSITE
+    # =========================================================
+
+    if cmd.startswith("open website "):
+
+        website = user[len("open website "):].strip()
+
+        if not website:
+            print("AJA: Please provide a website.")
+            continue
+
+        result = browser.open(website)
+
+        print("AJA:", result)
+
+        try:
+            speak(result)
+        except Exception:
+            pass
+
+        continue
+
+
+    # =========================================================
+    # REFRESH
+    # =========================================================
+
+    if cmd == "refresh":
+
+        result = browser.refresh()
+
+        print("AJA:", result)
+
+        try:
+            speak(result)
+        except Exception:
+            pass
+
+        continue
+
+
+    # =========================================================
+    # GO BACK
+    # =========================================================
+
+    if cmd == "go back":
+
+        result = browser.back()
+
+        print("AJA:", result)
+
+        try:
+            speak(result)
+        except Exception:
+            pass
+
+        continue
+
+
+    # =========================================================
+    # GO FORWARD
+    # =========================================================
+
+    if cmd == "go forward":
+
+        result = browser.forward()
+
+        print("AJA:", result)
+
+        try:
+            speak(result)
+        except Exception:
+            pass
+
+        continue
+
+
+    # =========================================================
+    # CLOSE TAB
+    # =========================================================
+
+    if cmd == "close tab":
+
+        result = browser.close_tab()
+
+        print("AJA:", result)
+
+        try:
+            speak(result)
+        except Exception:
+            pass
+
+        continue
+
+
+    # =========================================================
+    # CURRENT URL
+    # =========================================================
+
+    if cmd in ("current url", "what is the current url"):
+
+        result = browser.current_url()
+
+        print("AJA:", result)
+
+        continue
+
+
+    # =========================================================
+    # OPEN IMAGE
+    # =========================================================
+
+    if cmd.startswith("read image "):
+
+        path = user[len("read image "):].strip()
+
+        try:
+            result = read_text(path)
+        except Exception as e:
+            result = f"Image reading error: {e}"
+
+        print("AJA:", result)
+
+        try:
+            speak(result)
+        except Exception:
+            pass
+
+        continue
+
+
+    # =========================================================
+    # DESCRIBE IMAGE
+    # =========================================================
+
+    if cmd.startswith("describe image "):
+
+        path = user[len("describe image "):].strip()
+
+        try:
+            result = describe_image(path)
+        except Exception as e:
+            result = f"Image description error: {e}"
+
+        print("AJA:", result)
+
+        try:
+            speak(result)
+        except Exception:
+            pass
+
+        continue
+
+
+    # =========================================================
+    # NOTES - ADD
+    # =========================================================
+
+    if cmd.startswith("add note "):
+
+        note = user[len("add note "):].strip()
+
+        try:
+            result = add_note(note)
+        except Exception as e:
+            result = f"Note error: {e}"
+
+        print("AJA:", result)
+
+        continue
+
+
+    # =========================================================
+    # NOTES - SHOW
+    # =========================================================
+
+    if cmd in ("show notes", "notes"):
+
+        try:
+            result = show_notes()
+        except Exception as e:
+            result = f"Notes error: {e}"
+
+        print("AJA:", result)
+
+        continue
+
+
+    # =========================================================
+    # NOTES - DELETE
+    # =========================================================
+
+    if cmd.startswith("delete note "):
+
+        note = user[len("delete note "):].strip()
+
+        try:
+            result = delete_note(note)
+        except Exception as e:
+            result = f"Note delete error: {e}"
+
+        print("AJA:", result)
+
+        continue
+
+
+    # =========================================================
+    # PLANNER
+    # =========================================================
 
     try:
 
-        reply = ask_ai(messages)
+        plan = create_plan(user)
 
-        print("\nAJA:", reply, "\n")
+        print("\n===== AJA PLAN =====")
 
-        speak(reply)
+        for i, step in enumerate(plan, 1):
+            print(f"{i}. {step}")
 
-        messages.append({
-            "role": "assistant",
-            "content": reply
-        })
-
-        save_memory(messages)
+        print("====================\n")
 
     except Exception as e:
 
-        print("Error:", e)
+        print("Planner error:", e)
 
-        speak("Sorry Aja. Something went wrong.")
+
+    # =========================================================
+    # COMMAND EXECUTION
+    # =========================================================
+
+    try:
+
+        result = run_command(user)
+
+    except Exception as e:
+
+        result = None
+        print("Command error:", e)
+
+
+    if result:
+
+        print("AJA:", result)
+
+        try:
+            speak(result)
+        except Exception:
+            pass
+
+        continue
+
+
+    # =========================================================
+    # AI
+    # =========================================================
+
+    try:
+
+        messages.append({
+            "role": "user",
+            "content": user
+        })
+
+        response = ask_ai(messages)
+
+        print("\nAJA:", response)
+
+        try:
+            speak(response)
+        except Exception:
+            pass
+
+        messages.append({
+            "role": "assistant",
+            "content": response
+        })
+
+        try:
+            save_memory(messages)
+        except Exception:
+            pass
+
+    except Exception as e:
+
+        print("AJA AI Error:", e)
