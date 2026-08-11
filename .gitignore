@@ -7,3 +7,4 @@ venv/
 logs/
 screen.png
 data/*.log
+computer_control_test.png

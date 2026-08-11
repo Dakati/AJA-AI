@@ -22,6 +22,12 @@ from notes import add_note, show_notes, delete_note
 
 from system_info import get_system_status
 
+from computer_control import (
+    get_mouse_position, move_mouse, click, double_click,
+    type_text, press_key, hotkey, scroll, take_screenshot, wait
+)
+
+
 
 # ==============================
 # BROWSER
@@ -78,6 +84,106 @@ while True:
         continue
 
     cmd = user.lower().strip()
+        # ================= COMPUTER CONTROL =================
+
+    if cmd == "mouse position" or cmd == "where is my mouse":
+        result = get_mouse_position()
+        print("AJA:", result)
+        speak(result)
+        continue
+
+    if cmd == "click" or cmd == "mouse click":
+        result = click()
+        print("AJA:", result)
+        speak(result)
+        continue
+
+    if cmd == "double click":
+        result = double_click()
+        print("AJA:", result)
+        speak(result)
+        continue
+
+    if cmd.startswith("type "):
+        text = user[5:].strip()
+        result = type_text(text)
+        print("AJA:", result)
+        speak(result)
+        continue
+
+    if cmd.startswith("press "):
+        key = cmd[6:].strip()
+        result = press_key(key)
+        print("AJA:", result)
+        speak(result)
+        continue
+
+    if cmd == "enter":
+        result = press_key("enter")
+        print("AJA:", result)
+        speak(result)
+        continue
+
+    if cmd == "escape":
+        result = press_key("esc")
+        print("AJA:", result)
+        speak(result)
+        continue
+
+    if cmd == "copy":
+        result = hotkey("ctrl", "c")
+        print("AJA:", result)
+        speak(result)
+        continue
+
+    if cmd == "paste":
+        result = hotkey("ctrl", "v")
+        print("AJA:", result)
+        speak(result)
+        continue
+
+    if cmd == "select all":
+        result = hotkey("ctrl", "a")
+        print("AJA:", result)
+        speak(result)
+        continue
+
+    if cmd == "save":
+        result = hotkey("ctrl", "s")
+        print("AJA:", result)
+        speak(result)
+        continue
+
+    if cmd == "take screenshot" or cmd == "screenshot":
+        result = take_screenshot()
+        print("AJA:", result)
+        speak(result)
+        continue
+
+    if cmd.startswith("scroll "):
+        try:
+            amount = int(cmd.replace("scroll ", "").strip())
+            result = scroll(amount)
+            print("AJA:", result)
+            speak(result)
+        except ValueError:
+            print("AJA: Please provide a number.")
+        continue
+
+    if cmd.startswith("wait "):
+        try:
+            seconds = float(
+                cmd.replace("wait ", "")
+                   .replace("seconds", "")
+                   .strip()
+            )
+            result = wait(seconds)
+            print("AJA:", result)
+            speak(result)
+        except ValueError:
+            print("AJA: Please provide the wait time.")
+        continue
+ 
 
 
     # =========================================================
